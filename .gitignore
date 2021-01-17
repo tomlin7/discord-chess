@@ -6,6 +6,9 @@ __pycache__/
 # C extensions
 *.so
 
+# keeping my credentials private
+config.json
+
 # Distribution / packaging
 .Python
 build/
@@ -127,3 +130,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# unnecessary xml/iml files
+*.xml
+*.iml
