@@ -1,2 +1,2 @@
-def format_content(content):
-    return f"```{content}```"
+def format_content(content, language="brainfuck"):
+    return f"```{language}\n{content}```"
