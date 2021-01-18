@@ -5,7 +5,7 @@ from cogs.libs.formatter import format_content
 
 
 def init_board():
-    return format_content(chess.Board())
+    return format_content(chess.Board(), "swift")
 
 
 # def show_board():
