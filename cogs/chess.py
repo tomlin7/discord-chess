@@ -5,6 +5,7 @@ from cogs.libs.board import init_board
 from cogs.libs.moves import legal_moves
 
 from cogs.libs.move import push_san
+from cogs.libs.move import undo
 
 from cogs.libs.state import checkmate
 from cogs.libs.state import stalemate
@@ -38,6 +39,10 @@ class Chess(commands.Cog):
     @commands.command()
     async def move(self, ctx, move):
         await ctx.send(push_san(move))
+
+    @commands.command()
+    async def undo(self, ctx):
+        await ctx.send(undo())
 
     @commands.command()
     async def checkmate(self, ctx):

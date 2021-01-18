@@ -6,3 +6,7 @@ board = chess.Board()
 
 def push_san(move):
     return format_content(board.push_san(move))
+
+
+def undo():
+    return board.pop()
