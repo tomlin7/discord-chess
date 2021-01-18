@@ -18,3 +18,7 @@ def insufficient_material():
 
 def game_over():
     return board.is_game_over()
+
+
+def draw():
+    return board.can_claim_draw()
