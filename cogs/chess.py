@@ -15,6 +15,12 @@ from cogs.libs.state import draw
 from cogs.libs.repetitions import threefold_repetition
 from cogs.libs.repetitions import halfmove_clock
 from cogs.libs.repetitions import fifty_moves
+from cogs.libs.repetitions import fivefold_repetition
+from cogs.libs.repetitions import seventyfive_moves
+
+from cogs.libs.attacks import check
+from cogs.libs.attacks import attacked_by
+from cogs.libs.attacks import attackers
 
 
 class Chess(commands.Cog):
@@ -64,6 +70,26 @@ class Chess(commands.Cog):
     @commands.command()
     async def fifty_moves(self, ctx):
         await ctx.send(fifty_moves())
+
+    @commands.command()
+    async def fivefold_repetition(self, ctx):
+        await ctx.send(fivefold_repetition())
+
+    @commands.command()
+    async def seventyfive_moves(self, ctx):
+        await ctx.send(seventyfive_moves())
+
+    @commands.command()
+    async def check(self, ctx):
+        await ctx.send(check())
+
+    @commands.command()
+    async def attacked_by(self, ctx, color, square):
+        await ctx.send(attacked_by(color, square))
+
+    @commands.command()
+    async def attackers(self, ctx, color, square):
+        await ctx.send(attackers(color, square))
 
 
 def setup(bot):

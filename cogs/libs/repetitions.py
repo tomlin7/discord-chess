@@ -14,3 +14,11 @@ def halfmove_clock():
 
 def fifty_moves():
     return board.can_claim_fifty_moves()
+
+
+def fivefold_repetition():
+    return board.is_fivefold_repetition()
+
+
+def seventyfive_moves():
+    return board.is_seventyfive_moves()
