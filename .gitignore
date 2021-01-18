@@ -9,6 +9,7 @@ __pycache__/
 # keeping my credentials private
 config.json
 
+
 # Distribution / packaging
 .Python
 build/
