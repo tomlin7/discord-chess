@@ -3,6 +3,7 @@ from discord.ext import commands
 from cogs.libs.board import init_board
 
 from cogs.libs.moves import legal_moves
+from cogs.libs.moves import legal_move
 
 from cogs.libs.move import push_san
 from cogs.libs.move import undo
@@ -35,6 +36,10 @@ class Chess(commands.Cog):
     @commands.command()
     async def moves(self, ctx):
         await ctx.send(legal_moves())
+
+    @commands.command()
+    async def legal_move(self, ctx, move):
+        await ctx.send(legal_move(move))
 
     @commands.command()
     async def move(self, ctx, move):
