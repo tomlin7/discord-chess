@@ -23,6 +23,7 @@ from cogs.libs.repetitions import seventyfive_moves
 from cogs.libs.attacks import check
 from cogs.libs.attacks import attacked_by
 from cogs.libs.attacks import attackers
+from cogs.libs.attacks import attacker
 
 
 class Chess(commands.Cog):
@@ -100,6 +101,10 @@ class Chess(commands.Cog):
     @commands.command()
     async def attackers(self, ctx, color, square):
         await ctx.send(attackers(color, square))
+
+    @commands.command()
+    async def attacker(self, ctx, _attacker, color, square):
+        await ctx.send(attacker(_attacker, color, square))
 
 
 def setup(bot):

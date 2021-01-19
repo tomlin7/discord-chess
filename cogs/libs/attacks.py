@@ -26,3 +26,8 @@ def attacked_by(color, square):
 def attackers(color, square):
     _attackers = board.attackers(convert(color), chess.parse_square(square))
     return format_content(_attackers, "swift")
+
+
+def attacker(_attacker, color, square):
+    _attackers = board.attackers(convert(color), chess.parse_square(square))
+    return chess.parse_square(_attacker) in _attackers
