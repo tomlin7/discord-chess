@@ -37,3 +37,9 @@ def attacker(_user_id, _attacker, _color, _square):
     _board = boards[_user_id]
     _attackers = _board.attackers(convert(_color), chess.parse_square(_square))
     return chess.parse_square(_attacker) in _attackers
+
+
+def attacks(_user_id, _square):
+    _board = boards[_user_id]
+    _attacks = _board.attacks(chess.parse_square(_square))
+    generate_image(_board, _squares=_attacks)
