@@ -1,7 +1,3 @@
-import chess
-
-from cogs.libs.formatter import format_content
-
 from cogs.libs.boards import boards
 
 
