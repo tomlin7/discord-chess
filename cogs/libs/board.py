@@ -1,10 +1,8 @@
 import chess
 
-from cogs.libs.formatter import format_content
+from cogs.libs.boards import boards
 
 from cogs.libs.svg import generate_image
-
-from cogs.libs.boards import boards
 
 
 def init_board(_user_id, _value=None):
