@@ -4,6 +4,7 @@ from libs.data import file
 
 from cogs.libs.board import init_board
 from cogs.libs.board import show_board
+from cogs.libs.board import fen
 
 from cogs.libs.moves import legal_moves
 from cogs.libs.moves import legal_move
@@ -31,15 +32,24 @@ from cogs.libs.attacks import attacks
 
 
 class Chess(commands.Cog):
+    """
+    chess game for discord written in python.
+    """
     def __init__(self, _bot):
         self.bot = _bot
 
     @commands.group()
     async def chess(self, _ctx):
+        """
+        Main function group.
+        """
         pass
 
     @chess.command()
     async def create(self, _ctx, _value=None):
+        """
+        create a new chess board.
+        """
         if _value:
             init_board(_ctx.author.id, _value)
         else:
@@ -48,91 +58,164 @@ class Chess(commands.Cog):
 
     @chess.command()
     async def board(self, _ctx):
+        """
+        show user's current chess board.
+        """
         show_board(_ctx.author.id)
         await _ctx.send(file=file())
 
     @chess.command()
+    async def fen(self, _ctx):
+        """
+        shows FEN notation of user's current chess board.
+        :param _ctx:
+        :return:
+        """
+        await _ctx.send(fen(_ctx.author.id))
+
+    @chess.command()
     async def moves(self, _ctx):
+        """
+        shows possible-legal moves for user's current chess board.
+        """
         await _ctx.send(legal_moves(_ctx.author.id))
 
     @chess.group(name="is")
     async def _is(self, _ctx):
+        """
+        Parent group of checks.
+        """
         pass
 
     @_is.command()
     async def legal_move(self, _ctx, _move):
+        """
+        Checks whether it is a legal move.
+        """
         await _ctx.send(legal_move(_ctx.author.id, _move))
 
     @chess.command()
     async def move(self, _ctx, _move):
+        """
+        Moves the piece.
+        """
         push_san(_ctx.author.id, _move)
         await _ctx.send(file=file())
 
     @chess.command()
     async def undo(self, _ctx):
+        """
+        Undoes the last move.
+        """
         undo(_ctx.author.id)
         await _ctx.send(file=file())
 
     @_is.command()
     async def checkmate(self, _ctx):
+        """
+        Checks whether it is a checkmate.
+        """
         await _ctx.send(checkmate(_ctx.author.id))
 
     @_is.command()
     async def stalemate(self, _ctx):
+        """
+        Checks whether it is a Stalemate
+        """
         await _ctx.send(stalemate(_ctx.author.id))
 
     @_is.command()
     async def insufficient_material(self, _ctx):
+        """
+        Checks whether neither of the sides have sufficient material to win.
+        """
         await _ctx.send(insufficient_material(_ctx.author.id))
 
     @_is.command()
     async def game_over(self, _ctx):
+        """
+        Checks whether the game is over.
+        """
         await _ctx.send(game_over(_ctx.author.id))
 
+    # claims group should be created.
     @_is.command()
     async def draw(self, _ctx):
+        """
+        Checks whether the player can claim a draw.
+        """
         await _ctx.send(draw(_ctx.author.id))
 
     @_is.command()
     async def threefold_repetition(self, _ctx):
+        """
+        Checks if the player to move can claim a draw by threefold repetition.
+        """
         await _ctx.send(threefold_repetition(_ctx.author.id))
 
     @chess.command()
     async def halfmove_clock(self, _ctx):
+        """
+        The number of half-moves since the last capture or pawn move.
+        """
         await _ctx.send(halfmove_clock(_ctx.author.id))
 
     @_is.command()
     async def fifty_moves(self, ctx):
+        """
+        Checks if the player to move can claim a draw by the fifty-move rule.
+        """
         await ctx.send(fifty_moves(ctx.author.id))
 
     @_is.command()
     async def fivefold_repetition(self, _ctx):
+        """
+        Checks whether user can claim a draw by fivefold repetition.
+        """
         await _ctx.send(fivefold_repetition(_ctx.author.id))
 
     @_is.command()
     async def seventyfive_moves(self, _ctx):
+        """
+        Checks whether user can claim a draw by seventyfive-moves rule.
+        """
         await _ctx.send(seventyfive_moves(_ctx.author.id))
 
     @_is.command()
     async def check(self, _ctx):
+        """
+        Checks whether it is a check.
+        """
         await _ctx.send(check(_ctx.author.id))
 
     @_is.command()
     async def attacked_by(self, _ctx, _color, _square):
+        """
+        Checks whether a piece is attacked by another piece.
+        """
         await _ctx.send(attacked_by(_ctx.author.id, _color, _square))
 
     @chess.command()
     async def attackers(self, _ctx, _color, _square):
+        """
+        Displays attackers for a piece.
+        """
         attackers(_ctx.author.id, _color, _square)
         await _ctx.send(file=file())
 
     @chess.command()
     async def attacks(self, _ctx, _square):
+        """
+        Displays attacks on a piece.
+        """
         attacks(_ctx.author.id, _square)
         await _ctx.send(file=file())
 
     @_is.command()
     async def attacker(self, _ctx, _attacker, _color, _square):
+        """
+        Checks whether a piece is being attacked by another piece.
+        """
         await _ctx.send(attacker(_ctx.author.id, _attacker, _color, _square))
 
 

@@ -2,6 +2,9 @@ from discord.ext import commands
 
 
 class Events(commands.Cog):
+    """
+    Bot events.
+    """
     def __init__(self, bot):
         self.bot = bot
 
