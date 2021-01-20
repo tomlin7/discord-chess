@@ -1,24 +1,30 @@
 import chess
+
 from cogs.libs.formatter import format_content
 
-board = chess.Board()
+from cogs.libs.boards import boards
 
 
-def threefold_repetition():
-    return board.can_claim_threefold_repetition()
+def threefold_repetition(_user_id):
+    _board = boards[_user_id]
+    return _board.can_claim_threefold_repetition()
 
 
-def halfmove_clock():
-    return board.halfmove_clock
+def halfmove_clock(_user_id):
+    _board = boards[_user_id]
+    return _board.halfmove_clock
 
 
-def fifty_moves():
-    return board.can_claim_fifty_moves()
+def fifty_moves(_user_id):
+    _board = boards[_user_id]
+    return _board.can_claim_fifty_moves()
 
 
-def fivefold_repetition():
-    return board.is_fivefold_repetition()
+def fivefold_repetition(_user_id):
+    _board = boards[_user_id]
+    return _board.is_fivefold_repetition()
 
 
-def seventyfive_moves():
-    return board.is_seventyfive_moves()
+def seventyfive_moves(_user_id):
+    _board = boards[_user_id]
+    return _board.is_seventyfive_moves()

@@ -1,6 +1,9 @@
 from discord.ext import commands
 
+from libs.data import file
+
 from cogs.libs.board import init_board
+from cogs.libs.board import show_board
 
 from cogs.libs.moves import legal_moves
 from cogs.libs.moves import legal_move
@@ -27,85 +30,105 @@ from cogs.libs.attacks import attacker
 
 
 class Chess(commands.Cog):
-    def __init__(self, bot):
-        self.bot = bot
+    def __init__(self, _bot):
+        self.bot = _bot
 
-    @commands.command()
-    async def board(self, ctx):
-        await ctx.send(init_board())
+    @commands.group()
+    async def chess(self, _ctx):
+        pass
 
-    @commands.command()
-    async def moves(self, ctx):
-        await ctx.send(legal_moves())
+    @chess.command()
+    async def create(self, _ctx, _value=None):
+        if _value:
+            init_board(_ctx.user.id, _value)
+        else:
+            init_board(_ctx.user.id)
+        await _ctx.send(file=file())
 
-    @commands.command()
-    async def legal_move(self, ctx, move):
-        await ctx.send(legal_move(move))
+    @chess.command()
+    async def board(self, _ctx):
+        show_board(_ctx.user.id)
+        await _ctx.send(file=file())
 
-    @commands.command()
-    async def move(self, ctx, move):
-        await ctx.send(push_san(move))
+    @chess.command()
+    async def moves(self, _ctx):
+        await _ctx.send(legal_moves(_ctx.user.id))
 
-    @commands.command()
-    async def undo(self, ctx):
-        await ctx.send(undo())
+    @chess.group()
+    async def _is(self, _ctx):
+        pass
 
-    @commands.command()
-    async def checkmate(self, ctx):
-        await ctx.send(checkmate())
+    @_is.command()
+    async def legal_move(self, _ctx, _move):
+        await _ctx.send(legal_move(_ctx.user.id, _move))
 
-    @commands.command()
-    async def stalemate(self, ctx):
-        await ctx.send(stalemate())
+    @chess.command()
+    async def move(self, _ctx, _move):
+        push_san(_ctx.user.id, _move)
+        await _ctx.send(file=file())
 
-    @commands.command()
-    async def insufficient_material(self, ctx):
-        await ctx.send(insufficient_material())
+    @chess.command()
+    async def undo(self, _ctx):
+        undo(_ctx.user.id)
+        await _ctx.send(file=file())
 
-    @commands.command()
-    async def game_over(self, ctx):
-        await ctx.send(game_over())
+    @_is.command()
+    async def checkmate(self, _ctx):
+        await _ctx.send(checkmate(_ctx.user.id))
 
-    @commands.command()
-    async def draw(self, ctx):
-        await ctx.send(draw())
+    @_is.command()
+    async def stalemate(self, _ctx):
+        await _ctx.send(stalemate(_ctx.user.id))
 
-    @commands.command()
-    async def threefold_repetition(self, ctx):
-        await ctx.send(threefold_repetition())
+    @_is.command()
+    async def insufficient_material(self, _ctx):
+        await _ctx.send(insufficient_material(_ctx.user.id))
 
-    @commands.command()
-    async def halfmove_clock(self, ctx):
-        await ctx.send(halfmove_clock())
+    @_is.command()
+    async def game_over(self, _ctx):
+        await _ctx.send(game_over(_ctx.user.id))
 
-    @commands.command()
+    @_is.command()
+    async def draw(self, _ctx):
+        await _ctx.send(draw(_ctx.user.id))
+
+    @_is.command()
+    async def threefold_repetition(self, _ctx):
+        await _ctx.send(threefold_repetition(_ctx.user.id))
+
+    @_is.command()
+    async def halfmove_clock(self, _ctx):
+        await _ctx.send(halfmove_clock(_ctx.user.id))
+
+    @chess.command()
     async def fifty_moves(self, ctx):
-        await ctx.send(fifty_moves())
+        await ctx.send(fifty_moves(ctx.user.id))
 
-    @commands.command()
-    async def fivefold_repetition(self, ctx):
-        await ctx.send(fivefold_repetition())
+    @_is.command()
+    async def fivefold_repetition(self, _ctx):
+        await _ctx.send(fivefold_repetition(_ctx.user.id))
 
-    @commands.command()
-    async def seventyfive_moves(self, ctx):
-        await ctx.send(seventyfive_moves())
+    @_is.command()
+    async def seventyfive_moves(self, _ctx):
+        await _ctx.send(seventyfive_moves(_ctx.user.id))
 
-    @commands.command()
-    async def check(self, ctx):
-        await ctx.send(check())
+    @_is.command()
+    async def check(self, _ctx):
+        await _ctx.send(check(_ctx.user.id))
 
-    @commands.command()
-    async def attacked_by(self, ctx, color, square):
-        await ctx.send(attacked_by(color, square))
+    @_is.command()
+    async def attacked_by(self, _ctx, _color, _square):
+        await _ctx.send(attacked_by(_ctx.user.id, _color, _square))
 
-    @commands.command()
-    async def attackers(self, ctx, color, square):
-        await ctx.send(attackers(color, square))
+    @chess.command()
+    async def attackers(self, _ctx, _color, _square):
+        attackers(_ctx.user.id, _color, _square)
+        await _ctx.send(file=file())
 
-    @commands.command()
-    async def attacker(self, ctx, _attacker, color, square):
-        await ctx.send(attacker(_attacker, color, square))
+    @_is.command()
+    async def attacker(self, _ctx, _attacker, _color, _square):
+        await _ctx.send(attacker(_ctx.user.id, _attacker, _color, _square))
 
 
-def setup(bot):
-    bot.add_cog(Chess(bot))
+def setup(_bot):
+    _bot.add_cog(Chess(_bot))

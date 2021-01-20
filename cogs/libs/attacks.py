@@ -1,33 +1,39 @@
 import chess
-from cogs.libs.formatter import format_content
+import chess.svg
 
-board = chess.Board()
+from cogs.libs.svg import generate_image
+
+from cogs.libs.boards import boards
 
 
-def convert(value):
+def convert(_value):
     values = [1, 0]
-    if value not in values:
-        if value.lower() == "white":
+    if _value not in values:
+        if _value.lower() == "white":
             return True
-        elif value.lower() == "black":
+        elif _value.lower() == "black":
             return False
     else:
-        return value
+        return _value
 
 
-def check():
-    return board.is_check()
+def check(_user_id):
+    _board = boards[_user_id]
+    return _board.is_check()
 
 
-def attacked_by(color, square):
-    return board.is_attacked_by(convert(color), chess.parse_square(square))
+def attacked_by(_user_id, _color, _square):
+    _board = boards[_user_id]
+    return _board.is_attacked_by(convert(_color), chess.parse_square(_square))
 
 
-def attackers(color, square):
-    _attackers = board.attackers(convert(color), chess.parse_square(square))
-    return format_content(_attackers, "swift")
+def attackers(_user_id, _color, _square):
+    _board = boards[_user_id]
+    squares = _board.attackers(convert(_color), chess.parse_square(_square))
+    generate_image(_board, _squares=squares)
 
 
-def attacker(_attacker, color, square):
-    _attackers = board.attackers(convert(color), chess.parse_square(square))
+def attacker(_user_id, _attacker, _color, _square):
+    _board = boards[_user_id]
+    _attackers = _board.attackers(convert(_color), chess.parse_square(_square))
     return chess.parse_square(_attacker) in _attackers

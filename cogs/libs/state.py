@@ -1,24 +1,30 @@
 import chess
+
 from cogs.libs.formatter import format_content
 
-board = chess.Board()
+from cogs.libs.boards import boards
 
 
-def checkmate():
-    return board.is_checkmate()
+def checkmate(_user_id):
+    _board = boards[_user_id]
+    return _board.is_checkmate()
 
 
-def stalemate():
-    return board.is_stalemate()
+def stalemate(_user_id):
+    _board = boards[_user_id]
+    return _board.is_stalemate()
 
 
-def insufficient_material():
-    return board.is_insufficient_material()
+def insufficient_material(_user_id):
+    _board = boards[_user_id]
+    return _board.is_insufficient_material()
 
 
-def game_over():
-    return board.is_game_over()
+def game_over(_user_id):
+    _board = boards[_user_id]
+    return _board.is_game_over()
 
 
-def draw():
-    return board.can_claim_draw()
+def draw(_user_id):
+    _board = boards[_user_id]
+    return _board.can_claim_draw()

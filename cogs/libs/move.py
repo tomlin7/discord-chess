@@ -1,12 +1,15 @@
 import chess
+
 from cogs.libs.formatter import format_content
 
-board = chess.Board()
+from cogs.libs.boards import boards
 
 
-def push_san(move):
-    return format_content(board.push_san(move))
+def push_san(_user_id, _move):
+    _board = boards[_user_id]
+    return format_content(_board.push_san(_move))
 
 
-def undo():
-    return board.pop()
+def undo(_user_id):
+    _board = boards[_user_id]
+    return _board.pop()
