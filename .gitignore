@@ -8,7 +8,7 @@ __pycache__/
 
 # keeping my credentials private
 config.json
-
+output.png
 
 # Distribution / packaging
 .Python
