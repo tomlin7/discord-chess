@@ -1,0 +1,3 @@
+cairosvg
+chess
+discord.py
