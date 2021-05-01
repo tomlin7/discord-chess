@@ -5,5 +5,5 @@
 </h1>
 <br>
 <div align="center" style="position: relative;">
-Chess Bot for Discord
+Chess Integration for Discord
 </div>
